@@ -1,0 +1,29 @@
+{
+  "_verify": "CHECK EVERY FIELD on pmuy.gov.in before the demo. Rules and subsidy change.",
+  "name": "Pradhan Mantri Ujjwala Yojana (PMUY) - free LPG gas connection",
+  "who_can_apply": [
+    "An adult woman (18 years or older)",
+    "From a poor household: BPL, SC/ST, PMAY house beneficiary, Antyodaya (AAY) ration card, forest dweller, tea/ex-tea garden tribe, island or river-island resident, most backward classes",
+    "No other LPG connection already in the household"
+  ],
+  "eligibility_questions_in_order": [
+    "Is the woman 18 years or older?",
+    "Does your household already have a gas (LPG) connection?",
+    "Does your family have a priority/Antyodaya ration card, or belong to SC/ST or another poor-household group?"
+  ],
+  "documents": [
+    "Aadhaar card of the woman",
+    "Ration card or family proof",
+    "Bank passbook (bank account in her name)",
+    "One passport-size photo",
+    "Address proof (migrants can give a self-declaration)"
+  ],
+  "where_to_apply": "Nearest LPG gas agency (Indane, HP Gas or Bharat Gas), or online at pmuy.gov.in. Ask the agency for the Ujjwala form (KYC form).",
+  "what_to_say": "I want a new Ujjwala gas connection.",
+  "cost_note": "Connection deposit is covered by the scheme. The subsidy on refills and the stove/first refill arrangement can change - verify.",
+  "helplines": {
+    "pmuy": "1800-266-6696 (verify)",
+    "lpg_emergency": "1906",
+    "women_helpline": "181"
+  }
+}

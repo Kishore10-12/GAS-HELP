@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="ta">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>கேஸ் புக்கிங் உதவி</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tamil:wght@600;800&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#071a1f;--surface:#10272e;--edge:#24444d;--text:#f4f7f6;--dim:#8fb0b6;--saffron:#ffb703;--yes:#2ec4a6;--no:#ff6b5e}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{background:var(--ink);color:var(--text);font-family:"Noto Sans Tamil","Latha",system-ui,sans-serif;display:flex;justify-content:center}
+.screen{width:100%;max-width:480px;height:100vh;height:100dvh;display:flex;flex-direction:column;padding:env(safe-area-inset-top) 16px env(safe-area-inset-bottom)}
+#home{justify-content:center;gap:16px}
+h1{margin:0;font-size:30px;color:var(--saffron)}
+#home p{margin:0 0 6px;font-size:22px;color:var(--dim)}
+.tile{border-radius:24px;border:0;font:inherit;color:inherit;text-align:left;display:flex;flex-direction:column;gap:4px;padding:18px}
+.tile span{font-size:44px;line-height:1}.tile b{font-size:26px}.tile small{font-size:17px}
+.big{width:100%;cursor:pointer;background:linear-gradient(135deg,#ffb703,#ff8a1f);color:#2b1700;padding:26px}
+.big span{font-size:72px}.big b{font-size:38px}.big small{font-size:19px;font-weight:600}
+.big:active{transform:scale(.98)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.off{background:var(--surface);opacity:.55}
+.help{margin-top:6px;text-align:center;color:var(--no);font-weight:800;font-size:19px;text-decoration:none}
+#chat header{display:flex;align-items:center;gap:12px;padding:12px 0;font-size:20px;border-bottom:1px solid var(--edge)}
+#back{font:inherit;font-size:26px;width:44px;height:44px;border-radius:50%;border:1.5px solid var(--edge);background:var(--surface);color:var(--text);cursor:pointer}
+#waves{display:flex;gap:4px;height:18px;align-items:center;margin-left:auto;opacity:.2}
+#waves.on{opacity:1}
+#waves i{width:4px;height:5px;border-radius:4px;background:var(--saffron);animation:w .9s ease-in-out infinite;animation-play-state:paused}
+#waves.on i{animation-play-state:running}
+#waves i:nth-child(2){animation-delay:.2s}#waves i:nth-child(3){animation-delay:.4s}
+@keyframes w{50%{height:18px}}
+#msgs{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:12px;padding:16px 0}
+.m{max-width:88%;padding:12px 16px;border-radius:20px;font-size:22px;line-height:1.5;display:flex;gap:10px;align-items:flex-start}
+.m.bot{align-self:flex-start;background:var(--surface);border-bottom-left-radius:6px}
+.m.user{align-self:flex-end;background:var(--saffron);color:#2b1700;font-weight:800;border-bottom-right-radius:6px}
+.m.typing{opacity:.6}
+.spk{flex:none;border:0;background:#ffffff14;border-radius:50%;width:36px;height:36px;font-size:18px;cursor:pointer}
+.res{align-self:stretch;max-width:100%;background:var(--surface);border-radius:20px;padding:16px;border-left:8px solid var(--yes)}
+.res.no{border-color:var(--no)}.res.maybe{border-color:var(--saffron)}
+.res h2{margin:0 0 8px;font-size:24px}
+.doc{display:flex;gap:12px;align-items:center;padding:10px 0;border-top:1px solid var(--edge);font-size:20px;line-height:1.4}
+.doc::before{content:"";flex:none;width:22px;height:22px;border-radius:6px;border:2.5px solid var(--yes)}
+.res p{margin:12px 0;font-size:20px;line-height:1.6;color:var(--saffron);font-weight:800}
+.wa{display:block;text-align:center;background:#25d366;color:#052;font-weight:800;font-size:19px;padding:13px;border-radius:14px;text-decoration:none}
+#chips{display:flex;gap:10px;flex-wrap:wrap;padding-bottom:10px}
+#chips button{font:inherit;font-weight:800;font-size:20px;padding:12px 18px;border-radius:999px;border:2px solid var(--saffron);background:transparent;color:var(--saffron);cursor:pointer}
+#composer{display:flex;gap:10px;align-items:center;padding:6px 0 4px}
+#txt{flex:1;min-width:0;font:inherit;font-size:20px;padding:14px 18px;border-radius:999px;border:1.5px solid var(--edge);background:var(--surface);color:var(--text)}
+#go,#mic{flex:none;width:54px;height:54px;border-radius:50%;border:0;font-size:24px;cursor:pointer}
+#go{background:var(--surface);color:var(--saffron);border:1.5px solid var(--edge)}
+#mic{background:linear-gradient(135deg,#ffb703,#ff8a1f);width:62px;height:62px}
+#mic.rec{background:var(--no);animation:pulse 1.2s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 10px #ff6b5e33}}
+small.note{text-align:center;color:var(--dim);font-size:14px;padding-bottom:6px}
+button:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid var(--saffron);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+</head>
+<body>
+<div id="home" class="screen">
+ <h1>கேஸ் புக்கிங் உதவி</h1>
+ <p>என்ன உதவி வேண்டும்? தட்டுங்கள்.</p>
+ <button id="gasBtn" class="tile big"><span>🔥</span><b>கேஸ்</b><small>புதிய இணைப்பு · புக்கிங்</small></button>
+ <div class="two">
+  <div class="tile off"><span>🍚</span><b>ரேஷன்</b><small>விரைவில்</small></div>
+  <div class="tile off"><span>👵</span><b>உதவித்தொகை</b><small>விரைவில்</small></div>
+ </div>
+ <a class="help" href="tel:181">🆘 பெண்கள் உதவி எண் 181</a>
+</div>
+<div id="chat" class="screen" style="display:none">
+ <header><button id="back" aria-label="பின்னால்">←</button><b>கேஸ் உதவி</b><div id="waves"><i></i><i></i><i></i></div></header>
+ <div id="msgs"></div>
+ <div id="chips"></div>
+ <div id="composer">
+  <input id="txt" placeholder="இங்கே எழுதுங்கள்…" autocomplete="off">
+  <button id="go" aria-label="அனுப்பு">➤</button>
+  <button id="mic" aria-label="பேச தட்டவும்">🎤</button>
+ </div>
+ <small class="note">🎤 தட்டி பேசுங்கள் · உங்கள் குரல் சேமிக்கப்படாது</small>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+let history=[],busy=false,rec=null,chunks=[],timer,opened=false;
+const GREET="வணக்கம்! கேஸ் பற்றி உங்களுக்கு என்ன உதவி வேண்டும்? கீழே பேசுங்கள் அல்லது எழுதுங்கள்.";
+const ERR="மன்னிக்கவும், மீண்டும் ஒருமுறை சொல்லுங்கள்.";
+const esc=s=>String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
+
+const cache=new Map();let player=null,sid=0;
+function browserSpeak(t){const u=new SpeechSynthesisUtterance(t);u.lang="ta-IN";u.rate=.85;
+ u.onstart=()=>$("waves").classList.add("on");u.onend=u.onerror=()=>$("waves").classList.remove("on");speechSynthesis.speak(u);}
+async function speak(t){
+ const my=++sid;speechSynthesis.cancel();if(player){player.pause();player=null;}
+ $("waves").classList.add("on");
+ try{
+  let url=cache.get(t);
+  if(!url){const fd=new FormData();fd.append("text",t);const r=await fetch("/api/tts",{method:"POST",body:fd});if(!r.ok)throw 0;url=URL.createObjectURL(await r.blob());cache.set(t,url);}
+  if(my!==sid)return;
+  player=new Audio(url);player.onended=()=>$("waves").classList.remove("on");await player.play();
+ }catch(e){if(my===sid){$("waves").classList.remove("on");browserSpeak(t);}}
+}
+const down=()=>{$("msgs").scrollTop=$("msgs").scrollHeight;};
+function bubble(who,text,spk=true){const d=document.createElement("div");d.className="m "+who;
+ const s=document.createElement("span");s.textContent=text;d.appendChild(s);
+ if(who==="bot"&&spk){const b=document.createElement("button");b.className="spk";b.textContent="🔊";b.setAttribute("aria-label","மீண்டும் கேள்");b.onclick=()=>speak(s.textContent);d.appendChild(b);}
+ $("msgs").appendChild(d);down();return d;}
+function chips(kind){const c=$("chips");c.innerHTML="";
+ const set=kind==="start"?["🔥 புதிய கேஸ் இணைப்பு வேண்டும்","🛢️ கேஸ் புக் செய்ய வேண்டும்"]:kind==="ask"?["ஆம்","இல்லை"]:[];
+ set.forEach(t=>{const b=document.createElement("button");b.textContent=t;b.onclick=()=>sendText(t.replace(/^\S+\s/,""));c.appendChild(b);});down();}
+function card(j){const d=document.createElement("div");d.className="res"+(j.eligible==="no"?" no":j.eligible==="maybe"?" maybe":"");
+ const t={yes:"✅ நீங்கள் விண்ணப்பிக்கலாம்",no:"❌ தகுதி இல்லை",maybe:"❓ உறுதியாக சொல்ல முடியவில்லை"}[j.eligible]||"";
+ const share=encodeURIComponent([t,...j.documents,j.next_step].filter(Boolean).join("\n"));
+ d.innerHTML=(t?`<h2>${t}</h2>`:"")+j.documents.map(x=>`<div class="doc">${esc(x)}</div>`).join("")
+  +(j.next_step?`<p>📍 ${esc(j.next_step)}</p>`:"")
+  +`<a class="wa" target="_blank" rel="noopener" href="https://wa.me/?text=${share}">📲 WhatsApp-ல் அனுப்பு</a>`;
+ $("msgs").appendChild(d);down();}
+
+async function toWav(blob){
+ const ctx=new (window.AudioContext||window.webkitAudioContext)();
+ const buf=await ctx.decodeAudioData(await blob.arrayBuffer());
+ const off=new OfflineAudioContext(1,Math.ceil(buf.duration*16000),16000);
+ const s=off.createBufferSource();s.buffer=buf;s.connect(off.destination);s.start();
+ const d=(await off.startRendering()).getChannelData(0);
+ const v=new DataView(new ArrayBuffer(44+d.length*2));
+ const w=(o,t)=>[...t].forEach((c,i)=>v.setUint8(o+i,c.charCodeAt(0)));
+ w(0,"RIFF");v.setUint32(4,36+d.length*2,true);w(8,"WAVEfmt ");v.setUint32(16,16,true);
+ v.setUint16(20,1,true);v.setUint16(22,1,true);v.setUint32(24,16000,true);v.setUint32(28,32000,true);
+ v.setUint16(32,2,true);v.setUint16(34,16,true);w(36,"data");v.setUint32(40,d.length*2,true);
+ d.forEach((x,i)=>v.setInt16(44+i*2,Math.max(-1,Math.min(1,x))*32767,true));
+ return new Blob([v],{type:"audio/wav"});
+}
+
+async function send(fd,typed,ub){
+ busy=true;chips("");const wait=bubble("bot","…",false);wait.classList.add("typing");
+ fd.append("history",JSON.stringify(history));
+ try{
+  const r=await fetch("/api/chat",{method:"POST",body:fd});if(!r.ok)throw 0;
+  const j=await r.json();wait.remove();
+  if(ub&&j.heard)ub.firstChild.textContent=j.heard;
+  history.push({role:"user",text:j.heard||typed||""},{role:"model",text:j.spoken_text});
+  bubble("bot",j.spoken_text);
+  if(j.step==="result")card(j);else if(j.step==="ask")chips("ask");
+  speak(j.spoken_text);
+ }catch(e){wait.remove();if(ub)ub.remove();bubble("bot",ERR);speak(ERR);}
+ busy=false;
+}
+function sendText(v){v=v.trim();if(!v||busy)return;bubble("user",v);const fd=new FormData();fd.append("text",v);send(fd,v,null);}
+
+async function startRec(){
+ try{
+  speechSynthesis.cancel();
+  const st=await navigator.mediaDevices.getUserMedia({audio:true});
+  rec=new MediaRecorder(st);chunks=[];
+  rec.ondataavailable=e=>chunks.push(e.data);
+  rec.onstop=async()=>{st.getTracks().forEach(t=>t.stop());$("mic").classList.remove("rec");
+   const ub=bubble("user","🎤 …");const fd=new FormData();fd.append("audio",await toWav(new Blob(chunks)),"a.wav");send(fd,"",ub);};
+  rec.start();$("mic").classList.add("rec");
+  timer=setTimeout(()=>rec&&rec.state==="recording"&&rec.stop(),10000);
+ }catch(e){bubble("bot","மைக் அனுமதி தேவை. எழுதி சொல்லுங்கள்.",false);}
+}
+
+$("gasBtn").onclick=()=>{
+ $("home").style.display="none";$("chat").style.display="flex";
+ if(!opened){opened=true;bubble("bot",GREET);chips("start");}
+ speak(GREET);
+};
+$("back").onclick=()=>{sid++;if(player)player.pause();speechSynthesis.cancel();if(rec&&rec.state==="recording")rec.stop();$("chat").style.display="none";$("home").style.display="flex";};
+$("mic").onclick=()=>{if(busy)return;if(rec&&rec.state==="recording"){clearTimeout(timer);rec.stop();}else startRec();};
+$("go").onclick=()=>{const v=$("txt").value;$("txt").value="";sendText(v);};
+$("txt").addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();$("go").click();}});
+</script>
+</body>
+</html>
